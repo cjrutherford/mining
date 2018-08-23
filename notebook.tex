@@ -1,0 +1,2538 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Data Mining Code Portion.}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Import Libraries and read the CSV file
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}407}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+          \PY{k+kn}{import} \PY{n+nn}{prince}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{csv}
+          \PY{k+kn}{import} \PY{n+nn}{sklearn}
+          \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{n}{rcParams}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics} 
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+          
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}407}]:}    customerID  gender  SeniorCitizen Partner Dependents  tenure PhoneService  \textbackslash{}
+          0  7590-VHVEG  Female              0     Yes         No       1           No   
+          1  5575-GNVDE    Male              0      No         No      34          Yes   
+          2  3668-QPYBK    Male              0      No         No       2          Yes   
+          3  7795-CFOCW    Male              0      No         No      45           No   
+          4  9237-HQITU  Female              0      No         No       2          Yes   
+          
+                MultipleLines InternetService OnlineSecurity  {\ldots}  DeviceProtection  \textbackslash{}
+          0  No phone service             DSL             No  {\ldots}                No   
+          1                No             DSL            Yes  {\ldots}               Yes   
+          2                No             DSL            Yes  {\ldots}                No   
+          3  No phone service             DSL            Yes  {\ldots}               Yes   
+          4                No     Fiber optic             No  {\ldots}                No   
+          
+            TechSupport StreamingTV StreamingMovies        Contract PaperlessBilling  \textbackslash{}
+          0          No          No              No  Month-to-month              Yes   
+          1          No          No              No        One year               No   
+          2          No          No              No  Month-to-month              Yes   
+          3         Yes          No              No        One year               No   
+          4          No          No              No  Month-to-month              Yes   
+          
+                         PaymentMethod MonthlyCharges  TotalCharges Churn  
+          0           Electronic check          29.85         29.85    No  
+          1               Mailed check          56.95        1889.5    No  
+          2               Mailed check          53.85        108.15   Yes  
+          3  Bank transfer (automatic)          42.30       1840.75    No  
+          4           Electronic check          70.70        151.65   Yes  
+          
+          [5 rows x 21 columns]
+\end{Verbatim}
+            
+    Look at the data to understand the fields.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}408}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7043 entries, 0 to 7042
+Data columns (total 21 columns):
+customerID          7043 non-null object
+gender              7043 non-null object
+SeniorCitizen       7043 non-null int64
+Partner             7043 non-null object
+Dependents          7043 non-null object
+tenure              7043 non-null int64
+PhoneService        7043 non-null object
+MultipleLines       7043 non-null object
+InternetService     7043 non-null object
+OnlineSecurity      7043 non-null object
+OnlineBackup        7043 non-null object
+DeviceProtection    7043 non-null object
+TechSupport         7043 non-null object
+StreamingTV         7043 non-null object
+StreamingMovies     7043 non-null object
+Contract            7043 non-null object
+PaperlessBilling    7043 non-null object
+PaymentMethod       7043 non-null object
+MonthlyCharges      7043 non-null float64
+TotalCharges        7043 non-null object
+Churn               7043 non-null object
+dtypes: float64(1), int64(2), object(18)
+memory usage: 1.1+ MB
+
+    \end{Verbatim}
+
+    Look at the data types in the data frame
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}409}]:} \PY{n}{internet\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{InternetService}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{internet\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}409}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1a3560f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}410}]:} \PY{n}{gender\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{gender\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}410}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c162940>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}411}]:} \PY{n}{churn\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{churn\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}411}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1adf5a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}412}]:} \PY{n}{senior\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{SeniorCitizen}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{senior\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}412}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c2545f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Where 1 = Yes and 2 = No
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}413}]:} \PY{n}{partner\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Partner}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{partner\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}413}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c31ea58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}414}]:} \PY{n}{dependent\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Dependents}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dependent\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}414}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c3d2a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}415}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{tenure}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}415}]:} count    7043.000000
+          mean       32.371149
+          std        24.559481
+          min         0.000000
+          25\%         9.000000
+          50\%        29.000000
+          75\%        55.000000
+          max        72.000000
+          Name: tenure, dtype: float64
+\end{Verbatim}
+            
+    Mean is 32, and Median is 29, which is not too far off and the Std.
+Deviation is 24.5 so it's understandable that we would have a max at 72,
+and a top 25\% of 55.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}416}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{tenure}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}416}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c49b198>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}417}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{tenure}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{orient} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}417}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c81da20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}418}]:} \PY{n}{phone\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PhoneService}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{phone\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}418}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c9262b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}419}]:} \PY{n}{multi\PYZus{}line\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MultipleLines}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{multi\PYZus{}line\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}419}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1c9d7278>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}420}]:} \PY{n}{ols\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineSecurity}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ols\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}420}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1cda4208>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}421}]:} \PY{n}{olb\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineBackup}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{olb\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}421}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1ce71208>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}422}]:} \PY{n}{device\PYZus{}protection\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{DeviceProtection}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{device\PYZus{}protection\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}422}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a15c5c240>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}423}]:} \PY{n}{ts\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TechSupport}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ts\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}423}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1ce592e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}424}]:} \PY{n}{streaming\PYZus{}tv\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingTV}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{streaming\PYZus{}tv\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}424}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1be42048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}425}]:} \PY{n}{streaming\PYZus{}movie\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingMovies}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{streaming\PYZus{}movie\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}425}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1cfa0390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}426}]:} \PY{n}{contract\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{contract\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}426}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d06f588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}427}]:} \PY{n}{paperless\PYZus{}count} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaperlessBilling}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{paperless\PYZus{}count}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}427}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d13e4e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}428}]:} \PY{n}{payment\PYZus{}method\PYZus{}counts} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+          \PY{n}{payment\PYZus{}method\PYZus{}counts}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}428}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d217320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}429}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MonthlyCharges}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}429}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d2d0630>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}430}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MonthlyCharges}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}430}]:} count    7043.000000
+          mean       64.761692
+          std        30.090047
+          min        18.250000
+          25\%        35.500000
+          50\%        70.350000
+          75\%        89.850000
+          max       118.750000
+          Name: MonthlyCharges, dtype: float64
+\end{Verbatim}
+            
+    Looks like the MEAN charges are \$64.76 or approx. \$65/month, but the
+median is closer to 70.The Standart Deviation accounts for the 25th and
+75th quartiles, and the Max appears to be an outlier.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MonthlyCharges}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}431}]:} 0    20.05
+          dtype: float64
+\end{Verbatim}
+            
+    The most common amount is \$20/month.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}432}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}432}]:} 0      29.85
+          1    1889.50
+          2     108.15
+          3    1840.75
+          4     151.65
+          Name: TotalCharges, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}433}]:} count    7043.000000
+          mean     2279.734304
+          std      2266.794470
+          min         0.000000
+          25\%       398.550000
+          50\%      1394.550000
+          75\%      3786.600000
+          max      8684.800000
+          Name: TotalCharges, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}434}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TotalCharges}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}434}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d3cd5f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}435}]:} \PY{n}{crosstabs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+              \PY{k}{if} \PY{n}{c} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Churn}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{c} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerID}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{c} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tenure}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{c} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyCharges}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{c} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalCharges}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{n}{crosstabs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{crosstabs}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+gender  Female  Male   All
+Churn                     
+No        2549  2625  5174
+Yes        939   930  1869
+All       3488  3555  7043
+SeniorCitizen     0     1   All
+Churn                          
+No             4508   666  5174
+Yes            1393   476  1869
+All            5901  1142  7043
+Partner    No   Yes   All
+Churn                    
+No       2441  2733  5174
+Yes      1200   669  1869
+All      3641  3402  7043
+Dependents    No   Yes   All
+Churn                       
+No          3390  1784  5174
+Yes         1543   326  1869
+All         4933  2110  7043
+PhoneService   No   Yes   All
+Churn                        
+No            512  4662  5174
+Yes           170  1699  1869
+All           682  6361  7043
+MultipleLines    No  No phone service   Yes   All
+Churn                                            
+No             2541               512  2121  5174
+Yes             849               170   850  1869
+All            3390               682  2971  7043
+InternetService   DSL  Fiber optic    No   All
+Churn                                         
+No               1962         1799  1413  5174
+Yes               459         1297   113  1869
+All              2421         3096  1526  7043
+OnlineSecurity    No  No internet service   Yes   All
+Churn                                                
+No              2037                 1413  1724  5174
+Yes             1461                  113   295  1869
+All             3498                 1526  2019  7043
+OnlineBackup    No  No internet service   Yes   All
+Churn                                              
+No            1855                 1413  1906  5174
+Yes           1233                  113   523  1869
+All           3088                 1526  2429  7043
+DeviceProtection    No  No internet service   Yes   All
+Churn                                                  
+No                1884                 1413  1877  5174
+Yes               1211                  113   545  1869
+All               3095                 1526  2422  7043
+TechSupport    No  No internet service   Yes   All
+Churn                                             
+No           2027                 1413  1734  5174
+Yes          1446                  113   310  1869
+All          3473                 1526  2044  7043
+StreamingTV    No  No internet service   Yes   All
+Churn                                             
+No           1868                 1413  1893  5174
+Yes           942                  113   814  1869
+All          2810                 1526  2707  7043
+StreamingMovies    No  No internet service   Yes   All
+Churn                                                 
+No               1847                 1413  1914  5174
+Yes               938                  113   818  1869
+All              2785                 1526  2732  7043
+Contract  Month-to-month  One year  Two year   All
+Churn                                             
+No                  2220      1307      1647  5174
+Yes                 1655       166        48  1869
+All                 3875      1473      1695  7043
+PaperlessBilling    No   Yes   All
+Churn                             
+No                2403  2771  5174
+Yes                469  1400  1869
+All               2872  4171  7043
+PaymentMethod  Bank transfer (automatic)  Credit card (automatic)  \textbackslash{}
+Churn                                                               
+No                                  1286                     1290   
+Yes                                  258                      232   
+All                                 1544                     1522   
+
+PaymentMethod  Electronic check  Mailed check   All  
+Churn                                                
+No                         1294          1304  5174  
+Yes                        1071           308  1869  
+All                        2365          1612  7043  
+
+    \end{Verbatim}
+
+    Now that we have our contingency tables, let's go through each of them
+to check if there's a group that is significantly churning more than the
+others.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}436}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}436}]:} gender  Female  Male   All
+          Churn                     
+          No        2549  2625  5174
+          Yes        939   930  1869
+          All       3488  3555  7043
+\end{Verbatim}
+            
+    Looking at the Contingency Table, we can visually determine that the two
+populations of male and female are roughly equivalent, and the
+proportions to which they churn are also roughtly equivalent, but in the
+interest of being thourough, I will run the Chi Squared Test to
+determine if these are statistically significantly different.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}437}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,}\PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{ P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare 0.522366503358827 P: 0.9712873885521255
+
+    \end{Verbatim}
+
+    As Mentioned, visually you can tell there is no statistical difference
+in the populations, and the ChiSquare value and P value confirms this.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}438}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}438}]:} array([[2562.38989067, 2611.61010933, 5174.        ],
+                 [ 925.61010933,  943.38989067, 1869.        ],
+                 [3488.        , 3555.        , 7043.        ]])
+\end{Verbatim}
+            
+    Even in the context of the expected values, there appears to be nothing
+statistically interesting in this analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}439}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}439}]:} SeniorCitizen     0     1   All
+          Churn                          
+          No             4508   666  5174
+          Yes            1393   476  1869
+          All            5901  1142  7043
+\end{Verbatim}
+            
+    Visually we can tell that non seniors appear to be churning slower than
+seniors. Mainly because there are lower overall number of seniors
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}440}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 160.35213184520632, P: 1.2285843790939117e-33
+
+    \end{Verbatim}
+
+    We can tell that the results in our sample data is Significant,
+especially considering how miniscule the P Value is. We can state
+clearly that there are some irregular things happening with our Seniors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}441}]:} array([[4335.05239245,  838.94760755, 5174.        ],
+                 [1565.94760755,  303.05239245, 1869.        ],
+                 [5901.        , 1142.        , 7043.        ]])
+\end{Verbatim}
+            
+    This is reinforced by our expected table of values which states that by
+pure chance, we should be seeing less Seniors churning. (Almost 200 less
+in the dataset)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}442}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}442}]:} Partner    No   Yes   All
+          Churn                    
+          No       2441  2733  5174
+          Yes      1200   669  1869
+          All      3641  3402  7043
+\end{Verbatim}
+            
+    Visually we can see that Customers that are receiving partner deals for
+services are generally more loyal with only about 700 out of 3400
+churning. When compared to Those that are not receiving partner deals
+are churning a full 1/3 of the time.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}443}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 159.41452843242655, P: 1.9520350404613758e-33
+
+    \end{Verbatim}
+
+    Our Chi-Squared analysis confirms this with a P Value extremely close to
+Zero.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}444}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}444}]:} array([[2674.78830044, 2499.21169956, 5174.        ],
+                 [ 966.21169956,  902.78830044, 1869.        ],
+                 [3641.        , 3402.        , 7043.        ]])
+\end{Verbatim}
+            
+    From the values of the expected table, we can clearly see that partner
+programs are extremely effective at retaining customers. (We can see an
+overperformance of around 300.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}445}]:} Dependents    No   Yes   All
+          Churn                       
+          No          3390  1784  5174
+          Yes         1543   326  1869
+          All         4933  2110  7043
+\end{Verbatim}
+            
+    The issue with this contingency table is that the overall numbers are a
+little unclear, so I will also provide a table with matching
+percentages.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Dependents}\PY{p}{,}\PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}446}]:} Dependents        No       Yes      All
+          Churn                                  
+          No          0.481329  0.253301  0.73463
+          Yes         0.219083  0.046287  0.26537
+          All         0.700412  0.299588  1.00000
+\end{Verbatim}
+            
+    Now we can see that only about 30\% of customers actually have
+Dependents at all. Of those with dependents, 15\% churn where as those
+without 30\% are likely to churn. This makes sense as those with
+dependents are more likely to be less focused on phone service where
+someone without could potentially be always looking for a better deal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}447}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 189.94033391334852, P: 5.4590465250260434e-40
+
+    \end{Verbatim}
+
+    Our P Value confirms that this isn't from chance that those with
+dependents don't churn as much as those that don't
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}448}]:} array([[3623.93042737, 1550.06957263, 5174.        ],
+                 [1309.06957263,  559.93042737, 1869.        ],
+                 [4933.        , 2110.        , 7043.        ]])
+\end{Verbatim}
+            
+    Our expected values also illustrate that customers with dependents
+should be churning more, if it were governed by chance
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}449}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}449}]:} PhoneService   No   Yes   All
+          Churn                        
+          No            512  4662  5174
+          Yes           170  1699  1869
+          All           682  6361  7043
+\end{Verbatim}
+            
+    Visually we can see that most customers have phone service, and a good
+third of users are churning there, while those without phone service are
+churning equally, or slightly less. Let's take a look at the ChiSquared
+analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}450}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 1.0044084772333213, P: 0.9091267853074723
+
+    \end{Verbatim}
+
+    And the ChiSquared analysis shows that the differences between those
+that do and don't have phone services are not statistically significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}451}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}451}]:} MultipleLines    No  No phone service   Yes   All
+          Churn                                            
+          No             2541               512  2121  5174
+          Yes             849               170   850  1869
+          All            3390               682  2971  7043
+\end{Verbatim}
+            
+    Since those with multiple lines are a subclass of those with phone
+service, let's re-evaluate our crosstable without the "No Phone Service"
+Category.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}452}]:} \PY{n}{multi\PYZus{}line} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MultipleLines} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No phone service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{less\PYZus{}non\PYZus{}phone\PYZus{}users} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{multi\PYZus{}line}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{multi\PYZus{}line}\PY{o}{.}\PY{n}{MultipleLines}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{less\PYZus{}non\PYZus{}phone\PYZus{}users}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}452}]:} MultipleLines    No   Yes   All
+          Churn                          
+          No             2541  2121  4662
+          Yes             849   850  1699
+          All            3390  2971  6361
+\end{Verbatim}
+            
+    Here we can see a little more clearly that of customers that have phone
+service, we have roughly the same rate of churn for roughly the same
+size of population. We appear to have a rougly even split among those
+that do and those that don't have multiple lines of service.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}453}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{less\PYZus{}non\PYZus{}phone\PYZus{}users}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 10.283453792632583, P: 0.03591425668303589
+
+    \end{Verbatim}
+
+    The statistic shows that we do have a significant difference from
+chance. Let's look at the expected values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}454}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}454}]:} array([[2484.5433108, 2177.4566892, 4662.       ],
+                 [ 905.4566892,  793.5433108, 1699.       ],
+                 [3390.       , 2971.       , 6361.       ]])
+\end{Verbatim}
+            
+    This shows us that our data isn't far all that far from the expected
+counts, but is still statistically significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}455}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}455}]:} InternetService   DSL  Fiber optic    No   All
+          Churn                                         
+          No               1962         1799  1413  5174
+          Yes               459         1297   113  1869
+          All              2421         3096  1526  7043
+\end{Verbatim}
+            
+    This is a little unclear as there is the mixture of classes against the
+simple binary of Yes a customer has internet, and no the customer does
+not. Let's see if we can merge the columns DSL and FiberOptic.Let's get
+our original data and copy it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}456}]:} \PY{n}{internet\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}
+          \PY{n}{internet\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InternetServiceYN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{internet\PYZus{}data}\PY{o}{.}\PY{n}{InternetService}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DSL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fiber optic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{internet\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{internet\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,}\PY{n}{internet\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InternetServiceYN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True} \PY{p}{)}
+          \PY{n}{internet\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}456}]:} InternetServiceYN    No   Yes   All
+          Churn                              
+          No                 1413  3761  5174
+          Yes                 113  1756  1869
+          All                1526  5517  7043
+\end{Verbatim}
+            
+    From the looks of it, we have a large portion of Internet subscribers
+with about a third of them churning, and non-internet customers that
+appear to be churning a lot less.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}457}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{internet\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{internet\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InternetServiceYN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}457}]:} InternetServiceYN        No       Yes      All
+          Churn                                         
+          No                 0.200625  0.534005  0.73463
+          Yes                0.016044  0.249326  0.26537
+          All                0.216669  0.783331  1.00000
+\end{Verbatim}
+            
+    So, it appears that almost 80\% of customers are internet users, and
+26\% of total users are churning with 24 of those 26\% being Internet
+Users. This is by far our largest correlation so far.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}458}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{internet\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 365.7715640851134, P: 6.890681737550473e-78
+
+    \end{Verbatim}
+
+    Our ChiSquared statistic and P Value also confirm this intuitive
+analysis. Let's drill in further to see if there is a specific type of
+Internet Customer that is churning faster.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}459}]:} \PY{n}{all\PYZus{}internet} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{InternetService} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{all\PYZus{}internet\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{all\PYZus{}internet}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{all\PYZus{}internet}\PY{o}{.}\PY{n}{InternetService}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{all\PYZus{}internet\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}459}]:} InternetService   DSL  Fiber optic   All
+          Churn                                   
+          No               1962         1799  3761
+          Yes               459         1297  1756
+          All              2421         3096  5517
+\end{Verbatim}
+            
+    So, from this, it appears that The company's fiber subscribers are
+churning the most, with roughly half of the population churning. Let's
+see what our statistics have to say.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}460}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{all\PYZus{}internet\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 329.31954599970544, P: 5.1095923936356084e-70
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}461}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}461}]:} array([[1650.42251223, 2110.57748777, 3761.        ],
+                 [ 770.57748777,  985.42251223, 1756.        ],
+                 [2421.        , 3096.        , 5517.        ]])
+\end{Verbatim}
+            
+    It is apparrent that the Fiber subscribers are leaving for better offers
+elsewhere. We will explore this more in depth later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}462}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}462}]:} OnlineSecurity    No  No internet service   Yes   All
+          Churn                                                
+          No              2037                 1413  1724  5174
+          Yes             1461                  113   295  1869
+          All             3498                 1526  2019  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}463}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 849.9989679615965, P: 2.414681411867842e-180
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}464}]:} \PY{n}{ols\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineSecurity} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ols\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{ols\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{ols\PYZus{}data}\PY{o}{.}\PY{n}{OnlineSecurity}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ols\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}464}]:} OnlineSecurity    No   Yes   All
+          Churn                           
+          No              2037  1724  3761
+          Yes             1461   295  1756
+          All             3498  2019  5517
+\end{Verbatim}
+            
+    Initial Analysis seems to suggest that those with Online Security should
+churn at a lower rate. Let's take a look at the statistics.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}465}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{ols\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 435.0586778867463, P: 7.374255772533968e-93
+
+    \end{Verbatim}
+
+    and the statistics appear to back up this assumption.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}466}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}466}]:} OnlineBackup    No  No internet service   Yes   All
+          Churn                                              
+          No            1855                 1413  1906  5174
+          Yes           1233                  113   523  1869
+          All           3088                 1526  2429  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}467}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 601.8127901134089, P: 9.47834366883598e-127
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}468}]:} \PY{n}{olb\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineBackup} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{olb\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{olb\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{olb\PYZus{}data}\PY{o}{.}\PY{n}{OnlineBackup}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{olb\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}468}]:} OnlineBackup    No   Yes   All
+          Churn                         
+          No            1855  1906  3761
+          Yes           1233   523  1756
+          All           3088  2429  5517
+\end{Verbatim}
+            
+    We also seem to see that an internet user that doesn't have online
+backup is more likely to churn, and this is significant. Let's confirm
+with statistics.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}469}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{olb\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 212.07346569099087, P: 9.514038193047232e-45
+
+    \end{Verbatim}
+
+    This is confirmed with the high Chi Squared Value and P Values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}470}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}470}]:} DeviceProtection    No  No internet service   Yes   All
+          Churn                                                  
+          No                1884                 1413  1877  5174
+          Yes               1211                  113   545  1869
+          All               3095                 1526  2422  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}471}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 558.419369407389, P: 2.1613069878600708e-117
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}472}]:} \PY{n}{dev\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{DeviceProtection} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dev\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{dev\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{dev\PYZus{}data}\PY{o}{.}\PY{n}{DeviceProtection}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dev\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}472}]:} DeviceProtection    No   Yes   All
+          Churn                             
+          No                1884  1877  3761
+          Yes               1211   545  1756
+          All               3095  2422  5517
+\end{Verbatim}
+            
+    It appears that there is also a correlation with Internet Subscribers
+who don't have Device Protection Churning more.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}473}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{dev\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 173.08623760309035, P: 2.2752183015579087e-36
+
+    \end{Verbatim}
+
+    This appears to be confirmed in the statistics as well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}474}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}474}]:} TechSupport    No  No internet service   Yes   All
+          Churn                                             
+          No           2027                 1413  1734  5174
+          Yes          1446                  113   310  1869
+          All          3473                 1526  2044  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}475}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 828.1970684587393, P: 1.2432731207524936e-175
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}476}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}476}]:} array([[2551.37043873, 1121.04557717, 1501.5839841 , 5174.        ],
+                 [ 921.62956127,  404.95442283,  542.4160159 , 1869.        ],
+                 [3473.        , 1526.        , 2044.        , 7043.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}477}]:} \PY{n}{tech\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TechSupport} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{tech\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{tech\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{tech\PYZus{}data}\PY{o}{.}\PY{n}{TechSupport}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{tech\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}477}]:} TechSupport    No   Yes   All
+          Churn                        
+          No           2027  1734  3761
+          Yes          1446   310  1756
+          All          3473  2044  5517
+\end{Verbatim}
+            
+    It's starting to look like our clients that take advantage of all the
+premium features feel more invested. Tech support is no exception to
+this. Let's confirm that with the statistics.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}478}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{tech\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 415.4705556590498, P: 1.262731447133291e-88
+
+    \end{Verbatim}
+
+    We're once again confirmed in our assumptions that the data is not
+happening by chance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}479}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}479}]:} StreamingTV    No  No internet service   Yes   All
+          Churn                                             
+          No           1868                 1413  1893  5174
+          Yes           942                  113   814  1869
+          All          2810                 1526  2707  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}480}]:} \PY{n}{tv\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingTV} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{tv\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{tv\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{tv\PYZus{}data}\PY{o}{.}\PY{n}{StreamingTV}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{tv\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}480}]:} StreamingTV    No   Yes   All
+          Churn                        
+          No           1868  1893  3761
+          Yes           942   814  1756
+          All          2810  2707  5517
+\end{Verbatim}
+            
+    It appears however, that customers are split on TV, and it has no effect
+on customer churn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}481}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{tv\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 7.576150643430983, P: 0.1083978739917602
+
+    \end{Verbatim}
+
+    and our statistics confirms this.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}482}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}482}]:} StreamingMovies    No  No internet service   Yes   All
+          Churn                                                 
+          No               1847                 1413  1914  5174
+          Yes               938                  113   818  1869
+          All              2785                 1526  2732  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}483}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 375.66147934526555, P: 4.756349955118015e-78
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}484}]:} \PY{n}{movie\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingMovies} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{movie\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{movie\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{movie\PYZus{}data}\PY{o}{.}\PY{n}{StreamingMovies}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{movie\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}484}]:} StreamingMovies    No   Yes   All
+          Churn                            
+          No               1847  1914  3761
+          Yes               938   818  1756
+          All              2785  2732  5517
+\end{Verbatim}
+            
+    Streaming Movies appears to be none that important in the decision to
+churn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}485}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{movie\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 8.88568763983309, P: 0.0640211273902098
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}486}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}486}]:} array([[1898.56534348, 1862.43465652, 3761.        ],
+                 [ 886.43465652,  869.56534348, 1756.        ],
+                 [2785.        , 2732.        , 5517.        ]])
+\end{Verbatim}
+            
+    it's barely insignificant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}487}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}487}]:} Contract  Month-to-month  One year  Two year   All
+          Churn                                             
+          No                  2220      1307      1647  5174
+          Yes                 1655       166        48  1869
+          All                 3875      1473      1695  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}488}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 375.66147934526555, P: 4.756349955118015e-78
+
+    \end{Verbatim}
+
+    This is going to require us to split off the categories in order to
+determine which is statistically different.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}489}]:} \PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}data}\PY{o}{.}\PY{n}{Contract}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}489}]:} Contract  Month-to-month  One year   All
+          Churn                                   
+          No                  2220      1307  3527
+          Yes                 1655       166  1821
+          All                 3875      1473  5348
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}490}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{ct\PYZus{}m2m\PYZus{}1y\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 469.8074788942832, P: 2.266402313652666e-100
+
+    \end{Verbatim}
+
+    Clearly a significant difference.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}491}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}491}]:} array([[2555.55815258,  971.44184742, 3527.        ],
+                 [1319.44184742,  501.55815258, 1821.        ],
+                 [3875.        , 1473.        , 5348.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}492}]:} \PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}data}\PY{o}{.}\PY{n}{Contract}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}492}]:} Contract  Month-to-month  Two year   All
+          Churn                                   
+          No                  2220      1647  3867
+          Yes                 1655        48  1703
+          All                 3875      1695  5570
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}493}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{ct\PYZus{}m2m\PYZus{}2y\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 883.4268211310202, P: 6.492708222710809e-190
+
+    \end{Verbatim}
+
+    also clearly significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}494}]:} \PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month\PYZhy{}to\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}data}\PY{o}{.}\PY{n}{Contract}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}494}]:} Contract  One year  Two year   All
+          Churn                             
+          No            1307      1647  2954
+          Yes            166        48   214
+          All           1473      1695  3168
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}495}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{ct\PYZus{}1y\PYZus{}2y\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 89.07941527657874, P: 2.06557507914066e-18
+
+    \end{Verbatim}
+
+    Also Significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}496}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}496}]:} PaperlessBilling    No   Yes   All
+          Churn                             
+          No                2403  2771  5174
+          Yes                469  1400  1869
+          All               2872  4171  7043
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}497}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaperlessBilling}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}497}]:} PaperlessBilling        No       Yes      All
+          Churn                                        
+          No                0.341190  0.393440  0.73463
+          Yes               0.066591  0.198779  0.26537
+          All               0.407781  0.592219  1.00000
+\end{Verbatim}
+            
+    visually looking at the value counts, and the percentages, I don't
+believe thsi will be statistically significant in determining Churn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}498}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 259.1609742710177, P: 6.914929538933956e-55
+
+    \end{Verbatim}
+
+    However it appears that there is a bearing on churn from paperless
+billing, and it doesn't bode well for those that have the feature.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}499}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}499}]:} array([[2109.85773108, 3064.14226892, 5174.        ],
+                 [ 762.14226892, 1106.85773108, 1869.        ],
+                 [2872.        , 4171.        , 7043.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}500}]:} \PY{n}{crosstabs}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}500}]:} PaymentMethod  Bank transfer (automatic)  Credit card (automatic)  \textbackslash{}
+          Churn                                                               
+          No                                  1286                     1290   
+          Yes                                  258                      232   
+          All                                 1544                     1522   
+          
+          PaymentMethod  Electronic check  Mailed check   All  
+          Churn                                                
+          No                         1294          1304  5174  
+          Yes                        1071           308  1869  
+          All                        2365          1612  7043  
+\end{Verbatim}
+            
+    From first glance, this appears to be a simple, Electronic Check is the
+worst for customers. It is probably prudent to educate customers on more
+convenient payment methods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}501}]:} \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Credit card (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}501}]:} PaymentMethod  Bank transfer (automatic)  Electronic check  Mailed check   All
+          Churn                                                                         
+          No                                  1286              1294          1304  3884
+          Yes                                  258              1071           308  1637
+          All                                 1544              2365          1612  5521
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}502}]:} \PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mailed check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}502}]:} PaymentMethod  Bank transfer (automatic)  Electronic check   All
+          Churn                                                           
+          No                                  1286              1294  2580
+          Yes                                  258              1071  1329
+          All                                 1544              2365  3909
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}503}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}ec\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 339.92973751236786, P: 2.6187995582819725e-72
+
+    \end{Verbatim}
+
+    quite a significance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}504}]:} \PY{n}{expected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}504}]:} array([[1019.06369916, 1560.93630084, 2580.        ],
+                 [ 524.93630084,  804.06369916, 1329.        ],
+                 [1544.        , 2365.        , 3909.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}505}]:} \PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electronic check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}505}]:} PaymentMethod  Bank transfer (automatic)  Mailed check   All
+          Churn                                                       
+          No                                  1286          1304  2590
+          Yes                                  258           308   566
+          All                                 1544          1612  3156
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}506}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}mc\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 3.078340994950892, P: 0.5448018951267486
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}507}]:} \PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bank transfer (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electronic check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True} \PY{p}{)}
+          \PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}507}]:} PaymentMethod  Credit card (automatic)  Mailed check   All
+          Churn                                                     
+          No                                1290          1304  2594
+          Yes                                232           308   540
+          All                               1522          1612  3134
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}508}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}cc\PYZus{}mc\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 8.194056300032738, P: 0.0847228027428152
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}509}]:} \PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mailed check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}509}]:} PaymentMethod  Credit card (automatic)  Electronic check   All
+          Churn                                                         
+          No                                1290              1294  2584
+          Yes                                232              1071  1303
+          All                               1522              2365  3887
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}510}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}cc\PYZus{}ec\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 375.0507952813163, P: 6.825342562859223e-80
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}511}]:} \PY{n}{pmt\PYZus{}no\PYZus{}mc\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mailed check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}mc\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electronic check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}511}]:} PaymentMethod  Bank transfer (automatic)  Credit card (automatic)   All
+          Churn                                                                  
+          No                                  1286                     1290  2576
+          Yes                                  258                      232   490
+          All                                 1544                     1522  3066
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}512}]:} \PY{n}{chiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}bt\PYZus{}cc\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 1.228005839265449, P: 0.8734664657240501
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}513}]:} \PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bank transfer (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}data} \PY{o}{=} \PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{p}{[}\PY{n}{pmt\PYZus{}no\PYZus{}bt\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Credit card (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}tab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{p}{,} \PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}tab}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}513}]:} PaymentMethod  Electronic check  Mailed check   All
+          Churn                                              
+          No                         1294          1304  2598
+          Yes                        1071           308  1379
+          All                        2365          1612  3977
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}514}]:} \PY{n}{hiSq}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{pmt\PYZus{}ec\PYZus{}mc\PYZus{}tab}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChiSquare: }\PY{l+s+si}{\PYZob{}chiSq\PYZcb{}}\PY{l+s+s1}{, P: }\PY{l+s+si}{\PYZob{}p\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ChiSquare: 1.228005839265449, P: 1.5307149591526866e-61
+
+    \end{Verbatim}
+
+    All the statistics match with initial analysis.
+
+    Let's dummy the data in order to get it into a state suitable for PCA.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}515}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{gender} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Partner} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Partner}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Dependents} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Dependents}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PhoneService} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PhoneService}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MultipleLines} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{MultipleLines}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No phone service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{InternetService} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{InternetService}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DSL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fiber optic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineSecurity} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineSecurity}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineBackup} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{OnlineBackup}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{DeviceProtection} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{DeviceProtection}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TechSupport} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{TechSupport}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingTV} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingTV}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingMovies} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{StreamingMovies}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No internet service}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Contract}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month\PYZhy{}to\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaperlessBilling} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaperlessBilling}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{PaymentMethod}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electronic check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mailed check}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bank transfer (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Credit card (automatic)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}515}]:}    gender  SeniorCitizen  Partner  Dependents  tenure  PhoneService  \textbackslash{}
+          0       0              0        1           0       1             0   
+          1       1              0        0           0      34             1   
+          2       1              0        0           0       2             1   
+          3       1              0        0           0      45             0   
+          4       0              0        0           0       2             1   
+          
+             MultipleLines  InternetService  OnlineSecurity  OnlineBackup  \textbackslash{}
+          0              0                1               1             2   
+          1              1                1               2             1   
+          2              1                1               2             2   
+          3              0                1               2             1   
+          4              1                2               1             1   
+          
+                   {\ldots}          TechSupport  StreamingTV  StreamingMovies  Contract  \textbackslash{}
+          0        {\ldots}                    1            1                1         0   
+          1        {\ldots}                    1            1                1         1   
+          2        {\ldots}                    1            1                1         0   
+          3        {\ldots}                    2            1                1         1   
+          4        {\ldots}                    1            1                1         0   
+          
+             PaperlessBilling  PaymentMethod  MonthlyCharges  TotalCharges  Churn  \textbackslash{}
+          0                 1              1           29.85         29.85      0   
+          1                 0              0           56.95       1889.50      0   
+          2                 1              0           53.85        108.15      1   
+          3                 0              2           42.30       1840.75      0   
+          4                 1              1           70.70        151.65      1   
+          
+             InternetServiceYN  
+          0                Yes  
+          1                Yes  
+          2                Yes  
+          3                Yes  
+          4                Yes  
+          
+          [5 rows x 21 columns]
+\end{Verbatim}
+            
+    Let's separate our target variable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}516}]:} \PY{n}{churn\PYZus{}column} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{Churn}
+          \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Churn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{churn\PYZus{}column}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}516}]:} 0    0
+          1    0
+          2    1
+          3    0
+          4    1
+          Name: Churn, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}517}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}517}]:}    gender  SeniorCitizen  Partner  Dependents  tenure  PhoneService  \textbackslash{}
+          0       0              0        1           0       1             0   
+          1       1              0        0           0      34             1   
+          2       1              0        0           0       2             1   
+          3       1              0        0           0      45             0   
+          4       0              0        0           0       2             1   
+          
+             MultipleLines  InternetService  OnlineSecurity  OnlineBackup  \textbackslash{}
+          0              0                1               1             2   
+          1              1                1               2             1   
+          2              1                1               2             2   
+          3              0                1               2             1   
+          4              1                2               1             1   
+          
+             DeviceProtection  TechSupport  StreamingTV  StreamingMovies  Contract  \textbackslash{}
+          0                 1            1            1                1         0   
+          1                 2            1            1                1         1   
+          2                 1            1            1                1         0   
+          3                 2            2            1                1         1   
+          4                 1            1            1                1         0   
+          
+             PaperlessBilling  PaymentMethod  MonthlyCharges  TotalCharges  \textbackslash{}
+          0                 1              1           29.85         29.85   
+          1                 0              0           56.95       1889.50   
+          2                 1              0           53.85        108.15   
+          3                 0              2           42.30       1840.75   
+          4                 1              1           70.70        151.65   
+          
+            InternetServiceYN  
+          0               Yes  
+          1               Yes  
+          2               Yes  
+          3               Yes  
+          4               Yes  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}518}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}518}]:}                     gender  SeniorCitizen   Partner  Dependents    tenure  \textbackslash{}
+          gender            1.000000      -0.001874 -0.001808    0.010517  0.005106   
+          SeniorCitizen    -0.001874       1.000000  0.016479   -0.211185  0.016567   
+          Partner          -0.001808       0.016479  1.000000    0.452676  0.379697   
+          Dependents        0.010517      -0.211185  0.452676    1.000000  0.159712   
+          tenure            0.005106       0.016567  0.379697    0.159712  1.000000   
+          PhoneService     -0.006488       0.008576  0.017706   -0.001762  0.008448   
+          MultipleLines    -0.009451       0.113791  0.117307   -0.019657  0.258958   
+          InternetService  -0.010380       0.259390 -0.000132   -0.179631  0.033230   
+          OnlineSecurity   -0.014418       0.081878  0.091303   -0.029721  0.232373   
+          OnlineBackup     -0.012230       0.144828  0.090753   -0.062775  0.253743   
+          DeviceProtection -0.004720       0.140298  0.098664   -0.069078  0.253999   
+          TechSupport      -0.009409       0.067457  0.076551   -0.040788  0.230522   
+          StreamingTV      -0.008673       0.167188  0.079785   -0.086739  0.201053   
+          StreamingMovies  -0.010011       0.176469  0.075098   -0.101475  0.205031   
+          Contract          0.000126      -0.142554  0.294806    0.243187  0.671607   
+          PaperlessBilling -0.011754       0.156530 -0.014877   -0.111377  0.006152   
+          PaymentMethod    -0.010709       0.035614  0.143949    0.043494  0.366983   
+          MonthlyCharges   -0.014569       0.220173  0.096848   -0.113890  0.247900   
+          TotalCharges     -0.000080       0.103006  0.317504    0.062078  0.826178   
+          
+                            PhoneService  MultipleLines  InternetService  \textbackslash{}
+          gender               -0.006488      -0.009451        -0.010380   
+          SeniorCitizen         0.008576       0.113791         0.259390   
+          Partner               0.017706       0.117307        -0.000132   
+          Dependents           -0.001762      -0.019657        -0.179631   
+          tenure                0.008448       0.258958         0.033230   
+          PhoneService          1.000000       0.675070         0.093720   
+          MultipleLines         0.675070       1.000000         0.307988   
+          InternetService       0.093720       0.307988         1.000000   
+          OnlineSecurity       -0.159989       0.069085         0.582325   
+          OnlineBackup         -0.129770       0.130619         0.658718   
+          DeviceProtection     -0.142012       0.124502         0.663011   
+          TechSupport          -0.161930       0.069149         0.586074   
+          StreamingTV          -0.108239       0.165254         0.725645   
+          StreamingMovies      -0.114715       0.162841         0.723065   
+          Contract              0.002247       0.083343        -0.290189   
+          PaperlessBilling      0.016505       0.133255         0.378108   
+          PaymentMethod        -0.001724       0.126303         0.113951   
+          MonthlyCharges        0.247398       0.490700         0.905491   
+          TotalCharges          0.113214       0.412104         0.428963   
+          
+                            OnlineSecurity  OnlineBackup  DeviceProtection  TechSupport  \textbackslash{}
+          gender                 -0.014418     -0.012230         -0.004720    -0.009409   
+          SeniorCitizen           0.081878      0.144828          0.140298     0.067457   
+          Partner                 0.091303      0.090753          0.098664     0.076551   
+          Dependents             -0.029721     -0.062775         -0.069078    -0.040788   
+          tenure                  0.232373      0.253743          0.253999     0.230522   
+          PhoneService           -0.159989     -0.129770         -0.142012    -0.161930   
+          MultipleLines           0.069085      0.130619          0.124502     0.069149   
+          InternetService         0.582325      0.658718          0.663011     0.586074   
+          OnlineSecurity          1.000000      0.705166          0.701690     0.735191   
+          OnlineBackup            0.705166      1.000000          0.711335     0.709216   
+          DeviceProtection        0.701690      0.711335          1.000000     0.725327   
+          TechSupport             0.735191      0.709216          0.725327     1.000000   
+          StreamingTV             0.662220      0.703167          0.748182     0.703866   
+          StreamingMovies         0.667033      0.700158          0.752952     0.704587   
+          Contract                0.015824     -0.035407          0.005848     0.047218   
+          PaperlessBilling        0.184993      0.260715          0.246069     0.211031   
+          PaymentMethod           0.175390      0.181936          0.194702     0.178706   
+          MonthlyCharges          0.635534      0.710477          0.737104     0.661032   
+          TotalCharges            0.482624      0.537212          0.545565     0.495090   
+          
+                            StreamingTV  StreamingMovies  Contract  PaperlessBilling  \textbackslash{}
+          gender              -0.008673        -0.010011  0.000126         -0.011754   
+          SeniorCitizen        0.167188         0.176469 -0.142554          0.156530   
+          Partner              0.079785         0.075098  0.294806         -0.014877   
+          Dependents          -0.086739        -0.101475  0.243187         -0.111377   
+          tenure               0.201053         0.205031  0.671607          0.006152   
+          PhoneService        -0.108239        -0.114715  0.002247          0.016505   
+          MultipleLines        0.165254         0.162841  0.083343          0.133255   
+          InternetService      0.725645         0.723065 -0.290189          0.378108   
+          OnlineSecurity       0.662220         0.667033  0.015824          0.184993   
+          OnlineBackup         0.703167         0.700158 -0.035407          0.260715   
+          DeviceProtection     0.748182         0.752952  0.005848          0.246069   
+          TechSupport          0.703866         0.704587  0.047218          0.211031   
+          StreamingTV          1.000000         0.807221 -0.065128          0.318581   
+          StreamingMovies      0.807221         1.000000 -0.062583          0.310385   
+          Contract            -0.065128        -0.062583  1.000000         -0.176733   
+          PaperlessBilling     0.318581         0.310385 -0.176733          1.000000   
+          PaymentMethod        0.163469         0.168662  0.237204          0.064183   
+          MonthlyCharges       0.820225         0.817842 -0.074195          0.352150   
+          TotalCharges         0.535189         0.537968  0.446855          0.158574   
+          
+                            PaymentMethod  MonthlyCharges  TotalCharges  
+          gender                -0.010709       -0.014569     -0.000080  
+          SeniorCitizen          0.035614        0.220173      0.103006  
+          Partner                0.143949        0.096848      0.317504  
+          Dependents             0.043494       -0.113890      0.062078  
+          tenure                 0.366983        0.247900      0.826178  
+          PhoneService          -0.001724        0.247398      0.113214  
+          MultipleLines          0.126303        0.490700      0.412104  
+          InternetService        0.113951        0.905491      0.428963  
+          OnlineSecurity         0.175390        0.635534      0.482624  
+          OnlineBackup           0.181936        0.710477      0.537212  
+          DeviceProtection       0.194702        0.737104      0.545565  
+          TechSupport            0.178706        0.661032      0.495090  
+          StreamingTV            0.163469        0.820225      0.535189  
+          StreamingMovies        0.168662        0.817842      0.537968  
+          Contract               0.237204       -0.074195      0.446855  
+          PaperlessBilling       0.064183        0.352150      0.158574  
+          PaymentMethod          1.000000        0.189154      0.330337  
+          MonthlyCharges         0.189154        1.000000      0.651174  
+          TotalCharges           0.330337        0.651174      1.000000  
+\end{Verbatim}
+            
+    Since Monthly charges and Internet Service have a Pearson Correlation of
+0.90, I will take the Internet Service Variable over Monthly Charges.
+Also since Total Charges and Tenure have a correlation of 0.82 I will
+take Tenure over Total Charges as the Total Charges are widely varied,
+and are more easily represented by tenure.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}519}]:} \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalCharges}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyCharges}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InternetServiceYN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}519}]:}    gender  SeniorCitizen  Partner  Dependents  tenure  PhoneService  \textbackslash{}
+          0       0              0        1           0       1             0   
+          1       1              0        0           0      34             1   
+          2       1              0        0           0       2             1   
+          3       1              0        0           0      45             0   
+          4       0              0        0           0       2             1   
+          
+             MultipleLines  InternetService  OnlineSecurity  OnlineBackup  \textbackslash{}
+          0              0                1               1             2   
+          1              1                1               2             1   
+          2              1                1               2             2   
+          3              0                1               2             1   
+          4              1                2               1             1   
+          
+             DeviceProtection  TechSupport  StreamingTV  StreamingMovies  Contract  \textbackslash{}
+          0                 1            1            1                1         0   
+          1                 2            1            1                1         1   
+          2                 1            1            1                1         0   
+          3                 2            2            1                1         1   
+          4                 1            1            1                1         0   
+          
+             PaperlessBilling  PaymentMethod  
+          0                 1              1  
+          1                 0              0  
+          2                 1              0  
+          3                 0              2  
+          4                 1              1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}520}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{prince}\PY{o}{.}\PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{fit} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}
+          \PY{n}{fit} \PY{o}{=} \PY{n}{fit}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}
+          \PY{n}{pca}\PY{o}{.}\PY{n}{column\PYZus{}correlations}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}520}]:}                          0         1         2         3         4
+          gender            0.014989  0.005422  0.019241 -0.037930  0.600564
+          SeniorCitizen    -0.222474 -0.207059 -0.242932  0.340009  0.575740
+          Partner          -0.122990  0.633548  0.007138 -0.395049  0.337734
+          Dependents        0.103525  0.544961  0.158050 -0.640428  0.122061
+          tenure           -0.303079  0.778660 -0.047403  0.316238  0.027601
+          PhoneService      0.101201  0.101352 -0.876801 -0.159587 -0.176725
+          MultipleLines    -0.222063  0.223483 -0.860779 -0.057099 -0.103349
+          InternetService  -0.817767 -0.261941 -0.248465 -0.112275  0.030047
+          OnlineSecurity   -0.820969  0.036904  0.175381 -0.051919 -0.120300
+          OnlineBackup     -0.855386 -0.001281  0.079878 -0.031959 -0.042915
+          DeviceProtection -0.873982  0.015741  0.097152 -0.015458 -0.047962
+          TechSupport      -0.840428  0.037637  0.178079 -0.037032 -0.131575
+          StreamingTV      -0.885001 -0.062061  0.020854 -0.059622 -0.008612
+          StreamingMovies  -0.886226 -0.063917  0.024901 -0.037618 -0.009516
+          Contract          0.027910  0.813780  0.091825  0.286659 -0.097877
+          PaperlessBilling -0.379886 -0.222022 -0.213829 -0.020954  0.300148
+          PaymentMethod    -0.260437  0.412836 -0.053079  0.442456  0.043820
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}521}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{column\PYZus{}correlations}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{pca}\PY{o}{.}\PY{n}{eigenvalues\PYZus{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scree Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvalue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}I don\PYZsq{}t like the default legend so I typically make mine like below, e.g.}
+          \PY{c+c1}{\PYZsh{}with smaller fonts and a bit transparent so I do not cover up data, and make}
+          \PY{c+c1}{\PYZsh{}it moveable by the viewer in case upper\PYZhy{}right is a bad place for it }
+          \PY{n}{leg} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvalues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{borderpad}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} 
+                           \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{font\PYZus{}manager}\PY{o}{.}\PY{n}{FontProperties}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{markerscale}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{get\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}alpha}\PY{p}{(}\PY{l+m+mf}{0.4}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{draggable}\PY{p}{(}\PY{n}{state}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_171_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}522}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{plot\PYZus{}row\PYZus{}coordinates}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}522}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1d79b710>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_172_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    our first component is the internet user component, and is our most
+valueable customer class. The second component is predominantly
+long-standing customers with dependents.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}523}]:} \PY{n}{X} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{churn\PYZus{}column}
+          \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}523}]:}           0         1
+          0  0.054437 -1.501402
+          1 -0.061091 -0.464903
+          2 -0.224720 -2.066732
+          3 -0.828487 -0.148653
+          4  0.198302 -2.073203
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}524}]:} \PY{n}{Y}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}524}]:} 0    0
+          1    0
+          2    1
+          3    0
+          4    1
+          Name: Churn, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}525}]:} \PY{n}{xtrain}\PY{p}{,} \PY{n}{xtest}\PY{p}{,} \PY{n}{ytrain}\PY{p}{,} \PY{n}{ytest} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}526}]:} \PY{n}{xtrain}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}526}]:} (5282, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}527}]:} \PY{n}{classifier} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{xtrain}\PY{p}{,} \PY{n}{ytrain}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}527}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                    penalty='l2', random\_state=0, solver='liblinear', tol=0.0001,
+                    verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}528}]:} \PY{n}{ypredict} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{xtest}\PY{p}{)}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{n}{confusion\PYZus{}mtx} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{ytest}\PY{p}{,} \PY{n}{ypredict}\PY{p}{)}
+          \PY{n}{confusion\PYZus{}mtx}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}528}]:} array([[1155,  143],
+                 [ 257,  206]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}529}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy of logistic regression classifier on test set: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{classifier}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{xtest}\PY{p}{,} \PY{n}{ytest}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy of logistic regression classifier on test set: 0.77
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}530}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{ytest}\PY{p}{,} \PY{n}{ypredict}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+          0       0.82      0.89      0.85      1298
+          1       0.59      0.44      0.51       463
+
+avg / total       0.76      0.77      0.76      1761
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}531}]:} \PY{n}{classifier}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}531}]:} array([[-0.22923107, -0.91791708]])
+\end{Verbatim}
+            
+    First one is for the Internet User and the Second is for our long-term
+dependent customers under contract
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}532}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{classifier}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}532}]:} <matplotlib.collections.PathCollection at 0x1a1c05c9b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_184_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
